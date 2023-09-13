@@ -81,6 +81,10 @@ const RealTimeMessages = ({
         return () => { supabase.removeChannel(channel) }
     }, [supabase])
 
+    useEffect(() => {
+        setMessages(serverMessages)
+    }, [serverMessages])
+
     return (
         <div>
             {messages?.map(message => <Message
