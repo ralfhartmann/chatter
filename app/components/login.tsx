@@ -34,7 +34,7 @@ const Login = () => {
 
     return (
         <>
-            <p>Last login event: {event}</p>
+            <p>Last login event: {lastLoginEvent}</p>
             <button onClick={handleLogout}>Logout</button>
             <button onClick={handleLogin}>Login</button>
         </>
