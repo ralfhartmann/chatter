@@ -1,10 +1,25 @@
-import { json, type LoaderArgs, type V2_MetaFunction } from "@remix-run/node"
-import { useLoaderData } from "@remix-run/react";
-import Login from "components/login";
+import { ActionArgs, json, type LoaderArgs, type V2_MetaFunction } from "@remix-run/node"
+import { Form, useLoaderData } from "@remix-run/react";
+import Login from "~/components/login";
+import RealTimeMessages from "~/components/realtime-messages";
 
-import createServerSupabase from "utils/supabase.server"
+import createServerSupabase from "~/utils/supabase.server"
 
-// eslint-disable-next-line no-empty-pattern
+export const action = async ({ request }: LoaderArgs) => {
+  const response = new Response()
+  const supabase = createServerSupabase({ request, response })
+
+  const { message } = Object.fromEntries(await request.formData())
+  const { error } = await supabase
+    .from("messages")
+    .insert({ content: String(message) })
+
+  if (error)
+    console.log(error)
+
+  return json(null, { headers: response.headers })
+
+}
 export const loader = async ({ request }: LoaderArgs) => {
   const response = new Response()
   const supabase = createServerSupabase({ request, response })
@@ -15,13 +30,12 @@ export const loader = async ({ request }: LoaderArgs) => {
   return json({ messages: data ?? [] }, { headers: response.headers })
 }
 
-
 export const meta: V2_MetaFunction = () => {
   return [
     { title: "New Remix App" },
     { name: "description", content: "Welcome to Remix!" },
-  ];
-};
+  ]
+}
 
 export default function Index() {
   const { messages } = useLoaderData<typeof loader>()
@@ -29,7 +43,13 @@ export default function Index() {
   return (
     <>
       <Login />
-      <pre> {JSON.stringify(messages, null, 2)}</pre >
+      <RealTimeMessages serverMessages={messages} />
+      <Form method="post">
+        <input
+          type="text"
+          name="message" />
+        <button type="submit">Send</button>
+      </Form>
     </>
   )
 }

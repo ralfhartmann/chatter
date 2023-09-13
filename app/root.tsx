@@ -11,7 +11,7 @@ import {
   useRevalidator,
 } from "@remix-run/react";
 import { useEffect, useState } from "react"
-import createServerSuperbase from "utils/supabase.server"
+import createServerSuperbase from "~/utils/supabase.server"
 import { createBrowserClient } from "@supabase/auth-helpers-remix";
 
 import type { SupabaseClient } from "@supabase/supabase-js"
