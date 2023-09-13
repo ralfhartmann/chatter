@@ -63,7 +63,7 @@ export default function App() {
       subscription.unsubscribe()
     }
   }, [revalidate, serverAccessToken, session, supabase])
-
+  console.log("TEST")
   return (
     <html lang="en">
       <head>

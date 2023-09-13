@@ -1,4 +1,4 @@
-import { ActionArgs, json, type LoaderArgs, type V2_MetaFunction } from "@remix-run/node"
+import { json, type LoaderArgs, type V2_MetaFunction } from "@remix-run/node"
 import { Form, useLoaderData } from "@remix-run/react";
 import Login from "~/components/login";
 import RealTimeMessages from "~/components/realtime-messages";
