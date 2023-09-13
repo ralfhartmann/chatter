@@ -12,7 +12,7 @@ export const loader = async ({ request }: LoaderArgs) => {
   const { data } = await supabase
     .from('messages')
     .select()
-  return json({ messages: data ?? [] }, {    headers: response.headers  })
+  return json({ messages: data ?? [] }, { headers: response.headers })
 }
 
 
