@@ -53,6 +53,7 @@ export default function App() {
   const serverAccessToken = session?.access_token
 
   useEffect(() => {
+    return
     const { data: { subscription } } = supabase.auth
       .onAuthStateChange((event, session) => {
         if (session?.access_token !== serverAccessToken) {
